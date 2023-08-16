@@ -16,8 +16,8 @@ const path = require("path");
 dotenv.config();
 
 const port  = process.env.PORT || 8000
-var cors = require("cors");
-app.use(cors());
+// var cors = require("cors");
+// app.use(cors());
 
 app.get('/', (req,res)=>{    res.send("API works");
 });
@@ -98,7 +98,8 @@ io.on("connection", (socket) => {
     //send and get message:
     socket.on("sendMessage", ({senderId, receiverId, text}) => {
         const user = getUser(receiverId);
-        io.to(user.socketId).emit("getMessage", {
+        console.log("user", user);
+        io.to(user?.socketId).emit("getMessage", {
             senderId,
             text
         })
